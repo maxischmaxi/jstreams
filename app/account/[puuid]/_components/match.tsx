@@ -50,7 +50,7 @@ export function Match(props: Props) {
     .duration(match.info.gameDuration, "seconds")
     .format("mm:ss");
 
-  const { runes, win, champ, spells } = useMemo<MatchInfos>(() => {
+  const { win, champ, spells } = useMemo<MatchInfos>(() => {
     const participant = match.info.participants.find((participant) => {
       return participant.puuid === puuid;
     });

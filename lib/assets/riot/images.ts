@@ -1,4 +1,3 @@
-import { GetSummonerSpellsResponse } from "@/lib/riot/summonerspell";
 import { Image } from "@/lib/riot/types";
 
 export function getChampionSplashAssetUrl(

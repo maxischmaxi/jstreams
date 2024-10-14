@@ -1,10 +1,10 @@
 "use client";
 
-import { Match as MatchType } from "@/lib/riot/types";
+import { Match as MatchType } from "@/lib/riot/types/match/match";
 
 type Props = {
   match: MatchType;
-  timeline: any;
+  timeline: object;
 };
 
 export function Match(props: Props) {
