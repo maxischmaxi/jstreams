@@ -9,10 +9,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import {
-  ChampionMastery,
-  GetChampionMasteriesByPuuidResponse,
-} from "@/lib/riot/types";
-import {
   Table,
   TableBody,
   TableCaption,
@@ -30,9 +26,11 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { useMemo, useState } from "react";
+import { ChampionMastery } from "@/masteries/v1/masteries_pb";
+import { PlainMessage } from "@bufbuild/protobuf";
 
 type Props = {
-  masteries: GetChampionMasteriesByPuuidResponse;
+  masteries: PlainMessage<ChampionMastery>[];
 };
 
 const columnHelper = createColumnHelper<ChampionMastery>();

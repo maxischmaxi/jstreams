@@ -26,6 +26,8 @@ func (s *AssetsServer) GetItemAssetUrl(
 	_ context.Context,
 	in *connect.Request[assetsv1.GetItemAssetUrlRequest],
 ) (*connect.Response[assetsv1.GetItemAssetUrlResponse], error) {
+	path := fmt.Sprintf("/cdn/%s/img/item/%v.png", in.Msg.PatchVersion, in.Msg.ItemId)
+
 	return connect.NewResponse(&assetsv1.GetItemAssetUrlResponse{
 		Url: "",
 	}), nil

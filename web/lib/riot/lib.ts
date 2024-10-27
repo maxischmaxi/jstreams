@@ -1,4 +1,4 @@
-import { RegionalRoutingValues } from "@maxischmaxi/jstreams-ts/account/v1/account_pb";
+import { RegionalRoutingValues } from "@/account/v1/account_pb";
 
 export function accountRegionToTagline(region: RegionalRoutingValues): string {
   switch (region) {

@@ -6,6 +6,8 @@ import (
 	summonerv1 "maxischmaxi/jstreams/summoner/v1"
 	"net/url"
 	"os"
+
+	"github.com/patrickmn/go-cache"
 )
 
 func GetPlatformRoute(region summonerv1.PlatformRoutingValues, route string) (url.URL, error) {
@@ -47,4 +49,18 @@ func GetRegionalRoute(region accountv1.RegionalRoutingValues, route string) (url
 	u.RawQuery = q.Encode()
 
 	return *u, nil
+}
+
+func GetCachedValue(c *cache.Cache, uri url.URL) interface{} {
+	foo, found := c.Get(uri.String())
+
+	if found {
+		return foo
+	}
+
+	return nil
+}
+
+func SetCachedValue(c *cache.Cache, uri url.URL, value interface{}) {
+	c.Set(uri.String(), value, cache.DefaultExpiration)
 }

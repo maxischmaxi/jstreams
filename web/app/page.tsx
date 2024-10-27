@@ -20,7 +20,7 @@ import { ChevronDown } from "lucide-react";
 import {
   Account,
   RegionalRoutingValues,
-} from "@maxischmaxi/jstreams-ts/account_pb";
+} from "@/account/v1/account_pb";
 import { accountRegionToString, accountRegionToTagline } from "@/lib/riot/lib";
 
 export default function Page() {
@@ -47,11 +47,11 @@ export default function Page() {
   ) {
     const response = await fetch(
       "/api/account?gameName=" +
-        data.gameName +
-        "&region=" +
-        RegionalRoutingValues.EUROPE +
-        "&tagLine=" +
-        accountRegionToTagline(RegionalRoutingValues.EUROPE),
+      data.gameName +
+      "&region=" +
+      RegionalRoutingValues.EUROPE +
+      "&tagLine=" +
+      accountRegionToTagline(RegionalRoutingValues.EUROPE),
     );
     const account = (await response.json()) as Account;
     history.addItem({ gameName, region, timestamp: dayjs().unix() });

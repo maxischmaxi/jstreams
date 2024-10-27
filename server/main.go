@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 
+	"maxischmaxi/jstreams/account"
 	"maxischmaxi/jstreams/account/v1/accountv1connect"
 	"maxischmaxi/jstreams/assets"
 	"maxischmaxi/jstreams/assets/v1/assetsv1connect"
@@ -60,7 +61,7 @@ func main() {
 	path, handler = tierv1connect.NewTierServiceHandler(tier, interceptors)
 	mux.Handle(path, handler)
 
-	account := &accountServer{}
+	account := &account.AccountServer{}
 	path, handler = accountv1connect.NewAccountServiceHandler(account, interceptors)
 	mux.Handle(path, handler)
 

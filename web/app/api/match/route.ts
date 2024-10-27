@@ -1,6 +1,6 @@
 import { matches } from "@/lib/api";
 import { getMatchByMatchIdValidation } from "@/lib/riot/validation";
-import { RegionalRoutingValues } from "@maxischmaxi/jstreams-ts/gen/account_pb";
+import { RegionalRoutingValues } from "@/account/v1/account_pb";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest): Promise<NextResponse> {

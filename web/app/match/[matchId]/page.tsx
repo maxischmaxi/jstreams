@@ -1,4 +1,4 @@
-import { RegionalRoutingValues } from "@maxischmaxi/jstreams-ts/account/v1/account_pb";
+import { RegionalRoutingValues } from "@/account/v1/account_pb";
 import { Match } from "./_components/match";
 import { matches } from "@/lib/api";
 

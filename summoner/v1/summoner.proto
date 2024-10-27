@@ -5,6 +5,7 @@ option go_package = "maxischmaxi/jstreams/summoner/v1;summonerv1";
 package summoner;
 
 import "champions/v1/champions.proto";
+import "google/protobuf/struct.proto";
 
 service SummonerService {
   rpc GetSummonerByPuuid(GetSummonerByPuuidRequest) returns (GetSummonerByPuuidResponse) {}
@@ -60,15 +61,15 @@ message GetSummonerSpellsResponse {
 }
 
 message SummonerSpell {
-  repeated int32 cooldown = 1;
+  repeated float cooldown = 1;
   string cooldownBurn = 2;
   repeated int32 cost = 3;
   string costBurn = 4;
   string costType = 5;
   map<string, string> datavalues = 6;
   string description = 7;
-  repeated int32 effect = 8;
-  repeated string effectBurn = 9;
+  // repeated Effect effect = 8;
+  // repeated string effectBurn = 9;
   string id = 10;
   champions.Image image = 11;
   string key = 12;

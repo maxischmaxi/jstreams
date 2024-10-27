@@ -1,5 +1,5 @@
-import { getChampionMasteriesByPuuidByChampion } from "@/lib/riot/champion_mastery_v4";
-import { PLATFORM_ROUTING_VALUES } from "@/lib/riot/lib";
+import { masteries } from "@/lib/api";
+import { PlatformRoutingValues } from "@/summoner/v1/summoner_pb";
 
 type Props = {
   params: {
@@ -9,15 +9,15 @@ type Props = {
 };
 
 export default async function Page({ params: { puuid, championId } }: Props) {
-  const mastery = await getChampionMasteriesByPuuidByChampion({
+  const mastery = await masteries.getChampionMasteriesByPuuidByChampion({
     puuid,
     championId,
-    region: PLATFORM_ROUTING_VALUES.EUW1,
+    region: PlatformRoutingValues.EUW1,
   });
 
   return (
     <div>
-      <p>{mastery.lastPlayTime}</p>
+      <p>{mastery.championMastery?.lastPlayTime}</p>
     </div>
   );
 }

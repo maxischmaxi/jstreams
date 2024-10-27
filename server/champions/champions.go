@@ -10,9 +10,14 @@ import (
 	"net/http"
 
 	"connectrpc.com/connect"
+	"github.com/patrickmn/go-cache"
 )
 
 type ChampionsServer struct{}
+
+var (
+	championsCache = cache.New(cache.NoExpiration, cache.NoExpiration)
+)
 
 func (s *ChampionsServer) GetChampions(
 	_ context.Context,
@@ -24,6 +29,10 @@ func (s *ChampionsServer) GetChampions(
 	if err != nil {
 		log.Println(err)
 		return nil, connect.NewError(connect.CodeNotFound, err)
+	}
+
+	if v := utils.GetCachedValue(championsCache, uri); v != nil {
+		return connect.NewResponse(v.(*championsv1.GetChampionsResponse)), nil
 	}
 
 	var response championsv1.GetChampionsResponse
@@ -38,6 +47,8 @@ func (s *ChampionsServer) GetChampions(
 		log.Println(err)
 		return nil, connect.NewError(connect.CodeNotFound, err)
 	}
+
+	utils.SetCachedValue(championsCache, uri, &response)
 
 	return connect.NewResponse(&response), nil
 }

@@ -1,15 +1,17 @@
-import { Match } from "./_components/match";
 import {
   champions as championsApi,
   masteries as masteriesApi,
   matches as matchesApi,
   summoner as summonerApi,
 } from "@/lib/api";
-import { Match as MatchType } from "@maxischmaxi/jstreams-ts/matches/v1/matches_pb";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Champions } from "./_components/champions";
-import { PlatformRoutingValues } from "@maxischmaxi/jstreams-ts/summoner/v1/summoner_pb";
-import { RegionalRoutingValues } from "@maxischmaxi/jstreams-ts/account/v1/account_pb";
+import { PlatformRoutingValues } from "@/summoner/v1/summoner_pb";
+import { RegionalRoutingValues } from "@/account/v1/account_pb";
+import { PlainMessage } from "@bufbuild/protobuf";
+import { ChampionMastery } from "@/masteries/v1/masteries_pb";
+import { headers } from "next/headers";
+import { ServerMatch } from "./_components/servermatch";
 
 type Props = {
   params: {
@@ -18,6 +20,8 @@ type Props = {
 };
 
 export default async function Page({ params: { puuid } }: Props) {
+  const h = headers();
+  const version = h.get("x-version") ?? "";
   const masteries = await masteriesApi.getChampionMasteriesByPuuid({
     puuid,
     region: PlatformRoutingValues.EUW1,
@@ -28,28 +32,15 @@ export default async function Page({ params: { puuid } }: Props) {
     puuid,
   });
 
-  const matches: MatchType[] = [];
-
-  for (let i = 0; i < matchIds.matchIds.length; i++) {
-    const match = await matchesApi
-      .getMatchByMatchId({
-        matchId: matchIds.matchIds[i],
-        region: RegionalRoutingValues.EUROPE,
-      })
-      .then((res) => res.match);
-
-    if (match) {
-      matches.push(match);
-    }
-  }
-
   const { data: champions } = await championsApi.getChampions({
-    patchVersion: "14.20.1",
+    patchVersion: version,
   });
 
   const summonerSpells = await summonerApi.getSummonerSpells({
-    patchVersion: "14.20.1",
+    patchVersion: version,
   });
+
+  const championMasteries = masteries.championMasteries.map((m) => m.toJson() as unknown as PlainMessage<ChampionMastery>)
 
   return (
     <Tabs defaultValue="champions">
@@ -58,15 +49,15 @@ export default async function Page({ params: { puuid } }: Props) {
         <TabsTrigger value="matchhistory">Match History</TabsTrigger>
       </TabsList>
       <TabsContent value="champions">
-        <Champions masteries={masteries} />
+        <Champions masteries={championMasteries} />
       </TabsContent>
       <TabsContent value="matchhistory">
         <ul className="w-full flex flex-col gap-4">
-          {matches.map((match, key) => (
-            <Match
+          {matchIds.matchIds.map((match, key) => (
+            <ServerMatch
               key={key}
+              matchId={match}
               summonerSpells={summonerSpells.data}
-              match={match}
               puuid={puuid}
               champions={champions}
             />

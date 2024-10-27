@@ -3,10 +3,11 @@ import {
   account as accountApi,
   entries as entriesApi,
 } from "@/lib/api";
-import { RegionalRoutingValues } from "@maxischmaxi/jstreams-ts/account/v1/account_pb";
-import { PlatformRoutingValues } from "@maxischmaxi/jstreams-ts/summoner/v1/summoner_pb";
+import { RegionalRoutingValues } from "@/account/v1/account_pb";
+import { PlatformRoutingValues } from "@/summoner/v1/summoner_pb";
 import Image from "next/image";
 import { ReactNode } from "react";
+import { headers } from "next/headers";
 
 type Props = {
   params: {
@@ -16,6 +17,9 @@ type Props = {
 };
 
 export default async function Layout({ children, params: { puuid } }: Props) {
+  const h = headers();
+  const v = h.get("x-version") ?? "";
+
   const summoner = await summonerApi.getSummonerByPuuid({
     puuid,
     region: PlatformRoutingValues.EUW1,
@@ -27,7 +31,8 @@ export default async function Layout({ children, params: { puuid } }: Props) {
   });
 
   const icon = await accountApi.getAccountProfileIcon({
-    patchVersion: "14.20.1",
+    patchVersion: v,
+    profileIconId: summoner.summoner?.profileIconId,
   });
 
   const entries = await entriesApi.getEntriesBySummoner({
@@ -36,7 +41,7 @@ export default async function Layout({ children, params: { puuid } }: Props) {
   });
 
   return (
-    <div className="flex flex-col flex-nowrap w-full gap-8">
+    <div className="container mx-auto flex flex-col flex-nowrap gap-8">
       <div className="flex flex-row flex-nowrap gap-4">
         <div className="relative">
           <Image
@@ -60,11 +65,6 @@ export default async function Layout({ children, params: { puuid } }: Props) {
           )}
         </div>
         <div className="flex flex-row flex-nowrap justify-start items-center">
-          {entries.entries?.map((entry, key) => (
-            <div key={key}>
-              {entry.tier} {entry.rank}
-            </div>
-          ))}
         </div>
       </div>
       {children}

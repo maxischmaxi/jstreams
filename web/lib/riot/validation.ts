@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { RegionalRoutingValues } from "@maxischmaxi/jstreams-ts/account_pb";
-import { PlatformRoutingValues } from "@maxischmaxi/jstreams-ts/summoner_pb";
+import { RegionalRoutingValues } from "@/account/v1/account_pb";
+import { PlatformRoutingValues } from "@/summoner/v1/summoner_pb";
 
 export const getChampionMasteriesByPuuidValidation = z.object({
   puuid: z.string().min(1),

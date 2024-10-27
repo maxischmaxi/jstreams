@@ -8,20 +8,19 @@ import (
 	masteriesv1 "maxischmaxi/jstreams/masteries/v1"
 	"maxischmaxi/jstreams/utils"
 	"net/http"
+	"time"
 
 	"connectrpc.com/connect"
+	"github.com/patrickmn/go-cache"
 )
 
 type MasteriesServer struct{}
 
-func (s *MasteriesServer) GetChampionMasteriesByPuuidByChampion(
-	_ context.Context,
-	in *connect.Request[masteriesv1.GetChampionMasteriesByChampionRequeset],
-) (*connect.Response[masteriesv1.GetChampionMasteriesByChampionResponse], error) {
-	return connect.NewResponse(&masteriesv1.GetChampionMasteriesByChampionResponse{}), nil
-}
+var (
+	masteriesCache = cache.New(5*time.Minute, 10*time.Minute)
+)
 
-func (s *MasteriesServer) GetChampionMateriesByPuuidByChampion(
+func (s *MasteriesServer) GetChampionMasteriesByPuuidByChampion(
 	_ context.Context,
 	in *connect.Request[masteriesv1.GetChampionMasteriesByChampionRequeset],
 ) (*connect.Response[masteriesv1.GetChampionMasteriesByChampionResponse], error) {
@@ -31,6 +30,10 @@ func (s *MasteriesServer) GetChampionMateriesByPuuidByChampion(
 	if err != nil {
 		log.Println(err)
 		return nil, connect.NewError(connect.CodeNotFound, err)
+	}
+
+	if v := utils.GetCachedValue(masteriesCache, uri); v != nil {
+		return connect.NewResponse(v.(*masteriesv1.GetChampionMasteriesByChampionResponse)), nil
 	}
 
 	resp, err := http.Get(uri.String())
@@ -46,9 +49,13 @@ func (s *MasteriesServer) GetChampionMateriesByPuuidByChampion(
 		return nil, connect.NewError(connect.CodeNotFound, err)
 	}
 
-	return connect.NewResponse(&masteriesv1.GetChampionMasteriesByChampionResponse{
+	val := &masteriesv1.GetChampionMasteriesByChampionResponse{
 		ChampionMastery: &mastery,
-	}), nil
+	}
+
+	utils.SetCachedValue(masteriesCache, uri, val)
+
+	return connect.NewResponse(val), nil
 }
 
 func (s *MasteriesServer) GetChampionMasteriesByPuuid(
@@ -62,6 +69,10 @@ func (s *MasteriesServer) GetChampionMasteriesByPuuid(
 		log.Println(err)
 		log.Println(err)
 		return nil, connect.NewError(connect.CodeNotFound, err)
+	}
+
+	if v := utils.GetCachedValue(masteriesCache, uri); v != nil {
+		return connect.NewResponse(v.(*masteriesv1.GetChampionMasteriesResponse)), nil
 	}
 
 	resp, err := http.Get(uri.String())
@@ -78,7 +89,11 @@ func (s *MasteriesServer) GetChampionMasteriesByPuuid(
 		return nil, connect.NewError(connect.CodeNotFound, err)
 	}
 
-	return connect.NewResponse(&masteriesv1.GetChampionMasteriesResponse{
+	val := &masteriesv1.GetChampionMasteriesResponse{
 		ChampionMasteries: masteries,
-	}), nil
+	}
+
+	utils.SetCachedValue(masteriesCache, uri, val)
+
+	return connect.NewResponse(val), nil
 }

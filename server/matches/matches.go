@@ -8,11 +8,17 @@ import (
 	matchesv1 "maxischmaxi/jstreams/matches/v1"
 	"maxischmaxi/jstreams/utils"
 	"net/http"
+	"time"
 
 	"connectrpc.com/connect"
+	"github.com/patrickmn/go-cache"
 )
 
 type MatchesServer struct{}
+
+var (
+	matchesCache = cache.New(5*time.Minute, 10*time.Minute)
+)
 
 func (s *MatchesServer) GetMatchIdsByPuuid(
 	_ context.Context,
@@ -24,6 +30,10 @@ func (s *MatchesServer) GetMatchIdsByPuuid(
 	if err != nil {
 		log.Println(err)
 		return nil, connect.NewError(connect.CodeNotFound, err)
+	}
+
+	if v := utils.GetCachedValue(matchesCache, uri); v != nil {
+		return connect.NewResponse(v.(*matchesv1.GetMatchIdsByPuuidResponse)), nil
 	}
 
 	resp, err := http.Get(uri.String())
@@ -39,9 +49,13 @@ func (s *MatchesServer) GetMatchIdsByPuuid(
 		return nil, connect.NewError(connect.CodeNotFound, err)
 	}
 
-	return connect.NewResponse(&matchesv1.GetMatchIdsByPuuidResponse{
+	val := &matchesv1.GetMatchIdsByPuuidResponse{
 		MatchIds: matchIds,
-	}), nil
+	}
+
+	utils.SetCachedValue(matchesCache, uri, val)
+
+	return connect.NewResponse(val), nil
 }
 
 func (s *MatchesServer) GetMatchByMatchId(
@@ -54,6 +68,10 @@ func (s *MatchesServer) GetMatchByMatchId(
 	if err != nil {
 		log.Println(err)
 		return nil, connect.NewError(connect.CodeNotFound, err)
+	}
+
+	if v := utils.GetCachedValue(matchesCache, uri); v != nil {
+		return connect.NewResponse(v.(*matchesv1.GetMatchByMatchIdResponse)), nil
 	}
 
 	resp, err := http.Get(uri.String())
@@ -69,9 +87,13 @@ func (s *MatchesServer) GetMatchByMatchId(
 		return nil, connect.NewError(connect.CodeNotFound, err)
 	}
 
-	return connect.NewResponse(&matchesv1.GetMatchByMatchIdResponse{
+	val := &matchesv1.GetMatchByMatchIdResponse{
 		Match: &match,
-	}), nil
+	}
+
+	utils.SetCachedValue(matchesCache, uri, val)
+
+	return connect.NewResponse(val), nil
 }
 
 func (s *MatchesServer) GetMatchTimeline(
@@ -84,6 +106,10 @@ func (s *MatchesServer) GetMatchTimeline(
 	if err != nil {
 		log.Println(err)
 		return nil, connect.NewError(connect.CodeNotFound, err)
+	}
+
+	if v := utils.GetCachedValue(matchesCache, uri); v != nil {
+		return connect.NewResponse(v.(*matchesv1.GetMatchTimelineResponse)), nil
 	}
 
 	resp, err := http.Get(uri.String())
@@ -99,7 +125,11 @@ func (s *MatchesServer) GetMatchTimeline(
 		return nil, connect.NewError(connect.CodeNotFound, err)
 	}
 
-	return connect.NewResponse(&matchesv1.GetMatchTimelineResponse{
+	val := &matchesv1.GetMatchTimelineResponse{
 		Timeline: &timeline,
-	}), nil
+	}
+
+	utils.SetCachedValue(matchesCache, uri, val)
+
+	return connect.NewResponse(val), nil
 }

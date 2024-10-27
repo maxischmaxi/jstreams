@@ -8,11 +8,17 @@ import (
 	entriesv1 "maxischmaxi/jstreams/entries/v1"
 	"maxischmaxi/jstreams/utils"
 	"net/http"
+	"time"
 
 	"connectrpc.com/connect"
+	"github.com/patrickmn/go-cache"
 )
 
 type EntriesServer struct{}
+
+var (
+	entriesCache = cache.New(5*time.Minute, 10*time.Minute)
+)
 
 func (s *EntriesServer) GetEntriesBySummoner(
 	_ context.Context,
@@ -24,6 +30,10 @@ func (s *EntriesServer) GetEntriesBySummoner(
 	if err != nil {
 		log.Println(err)
 		return nil, connect.NewError(connect.CodeNotFound, err)
+	}
+
+	if v := utils.GetCachedValue(entriesCache, uri); v != nil {
+		return connect.NewResponse(v.(*entriesv1.GetEntriesBySummonerResponse)), nil
 	}
 
 	resp, err := http.Get(uri.String())
@@ -39,7 +49,11 @@ func (s *EntriesServer) GetEntriesBySummoner(
 		return nil, connect.NewError(connect.CodeNotFound, err)
 	}
 
-	return connect.NewResponse(&entriesv1.GetEntriesBySummonerResponse{
+	val := &entriesv1.GetEntriesBySummonerResponse{
 		Entries: entries,
-	}), nil
+	}
+
+	utils.SetCachedValue(entriesCache, uri, val)
+
+	return connect.NewResponse(val), nil
 }

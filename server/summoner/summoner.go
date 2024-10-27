@@ -8,11 +8,17 @@ import (
 	summonerv1 "maxischmaxi/jstreams/summoner/v1"
 	"maxischmaxi/jstreams/utils"
 	"net/http"
+	"time"
 
 	"connectrpc.com/connect"
+	"github.com/patrickmn/go-cache"
 )
 
 type SummonerServer struct{}
+
+var (
+	summonerCache = cache.New(5*time.Minute, 10*time.Minute)
+)
 
 func (s *SummonerServer) GetSummonerSpells(
 	_ context.Context,
@@ -23,6 +29,10 @@ func (s *SummonerServer) GetSummonerSpells(
 	if err != nil {
 		log.Println(err)
 		return nil, connect.NewError(connect.CodeNotFound, err)
+	}
+
+	if v := utils.GetCachedValue(summonerCache, uri); v != nil {
+		return connect.NewResponse(v.(*summonerv1.GetSummonerSpellsResponse)), nil
 	}
 
 	resp, err := http.Get(uri.String())
@@ -37,6 +47,8 @@ func (s *SummonerServer) GetSummonerSpells(
 		log.Println(err)
 		return nil, connect.NewError(connect.CodeNotFound, err)
 	}
+
+	utils.SetCachedValue(summonerCache, uri, &spells)
 
 	return connect.NewResponse(&spells), nil
 }
@@ -53,6 +65,10 @@ func (s *SummonerServer) GetSummonerByPuuid(
 		return nil, connect.NewError(connect.CodeNotFound, err)
 	}
 
+	if v := utils.GetCachedValue(summonerCache, uri); v != nil {
+		return connect.NewResponse(v.(*summonerv1.GetSummonerByPuuidResponse)), nil
+	}
+
 	resp, err := http.Get(uri.String())
 	if err != nil {
 		log.Println(err)
@@ -66,7 +82,11 @@ func (s *SummonerServer) GetSummonerByPuuid(
 		return nil, connect.NewError(connect.CodeNotFound, err)
 	}
 
-	return connect.NewResponse(&summonerv1.GetSummonerByPuuidResponse{
+	val := &summonerv1.GetSummonerByPuuidResponse{
 		Summoner: &summoner,
-	}), nil
+	}
+
+	utils.SetCachedValue(summonerCache, uri, val)
+
+	return connect.NewResponse(val), nil
 }

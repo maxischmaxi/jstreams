@@ -8,7 +8,13 @@ import (
 	versionv1 "maxischmaxi/jstreams/version/v1"
 	"net/http"
 
+	"github.com/patrickmn/go-cache"
+
 	"connectrpc.com/connect"
+)
+
+var (
+	versionCache = cache.New(cache.NoExpiration, cache.NoExpiration)
 )
 
 type VersionServer struct{}
@@ -24,6 +30,10 @@ func (s *VersionServer) GetCurrentVersion(
 		return nil, connect.NewError(connect.CodeNotFound, err)
 	}
 
+	if v := utils.GetCachedValue(versionCache, uri); v != nil {
+		return connect.NewResponse(v.(*versionv1.GetCurrentVersionResponse)), nil
+	}
+
 	resp, err := http.Get(uri.String())
 	if err != nil {
 		log.Println(err)
@@ -38,9 +48,13 @@ func (s *VersionServer) GetCurrentVersion(
 		return nil, connect.NewError(connect.CodeNotFound, err)
 	}
 
-	return connect.NewResponse(&versionv1.GetCurrentVersionResponse{
+	val := &versionv1.GetCurrentVersionResponse{
 		Version: versions[0],
-	}), nil
+	}
+
+	utils.SetCachedValue(versionCache, uri, val)
+
+	return connect.NewResponse(val), nil
 }
 
 func (s *VersionServer) GetVersions(
@@ -54,6 +68,12 @@ func (s *VersionServer) GetVersions(
 		return nil, connect.NewError(connect.CodeNotFound, err)
 	}
 
+	if v := utils.GetCachedValue(versionCache, uri); v != nil {
+		return connect.NewResponse(&versionv1.GetVersionsResponse{
+			Versions: v.([]string),
+		}), nil
+	}
+
 	resp, err := http.Get(uri.String())
 	if err != nil {
 		log.Println(err)
@@ -68,7 +88,11 @@ func (s *VersionServer) GetVersions(
 		return nil, connect.NewError(connect.CodeNotFound, err)
 	}
 
-	return connect.NewResponse(&versionv1.GetVersionsResponse{
+	val := &versionv1.GetVersionsResponse{
 		Versions: versions,
-	}), nil
+	}
+
+	utils.SetCachedValue(versionCache, uri, val)
+
+	return connect.NewResponse(val), nil
 }

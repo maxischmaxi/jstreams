@@ -1,9 +1,6 @@
+import { GetAccountByGamenameAndTaglineRequest, GetAccountByGamenameAndTaglineResponse } from "@/account/v1/account_pb";
+import { account } from "@/lib/api";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
-import account from "@/lib/api/account";
-import {
-  GetAccountByGamenameAndTaglineRequest,
-  GetAccountByGamenameAndTaglineResponse,
-} from "@maxischmaxi/jstreams-ts/gen/account_pb";
 
 export function useQueryAccountByGamenameAndTagline(
   props: GetAccountByGamenameAndTaglineRequest,

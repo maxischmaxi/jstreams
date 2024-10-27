@@ -44,13 +44,13 @@ message MatchMetadata {
 
 message MatchInfo {
   string endOfGameResult = 1;
-  int32 gameCreation = 2;
+  int64 gameCreation = 2;
   int32 gameDuration = 3;
-  int32 gameEndTimestamp = 4;
-  int32 gameId = 5;
+  int64 gameEndTimestamp = 4;
+  int64 gameId = 5;
   string gameMode = 6;
   string gameName = 7;
-  int32 gameStartTimestamp = 8;
+  int64 gameStartTimestamp = 8;
   string gameType = 9;
   string gameVersion = 10;
   int32 mapId = 11;
@@ -63,7 +63,7 @@ message MatchInfo {
 
 message Team {
   repeated Ban bans = 1;
-  repeated Objective objectives = 2;
+  Objectives objectives = 2;
   int32 teamId = 3;
   bool win = 4;
 }
@@ -73,7 +73,7 @@ message Ban {
   int32 pickTurn = 2;
 }
 
-message Objective {
+message Objectives {
   ObjectiveTarget baron = 1; 
   ObjectiveTarget champion = 2;
   ObjectiveTarget dragon = 3;
@@ -147,7 +147,7 @@ message MatchParticipant {
   int32 magicDamageDealt = 56;
   int32 magicDamageDealtToChampions = 57;
   int32 magicDamageTaken = 58;
-  repeated Mission missions = 59;
+  map<string, int32> missions = 59;
   int32 needVisionPings = 60;
   int32 neutralMinionsKilled = 61;
   int32 nexusKills = 62;
@@ -158,7 +158,7 @@ message MatchParticipant {
   int32 onMyWayPings = 67;
   int32 participantId = 68;
   int32 pentaKills = 69;
-  repeated Perk perks = 70;
+  Perks perks = 70;
   int32 physicalDamageDealt = 71;
   int32 physicalDamageDealtToChampions = 72;
   int32 physicalDamageTaken = 73;
@@ -223,9 +223,9 @@ message MatchParticipant {
   bool win = 132;
 }
 
-message Perk {
+message Perks {
   StatPerks statPerks = 1;
-  StylePerks stylePerks = 2;
+  repeated StylePerks styles = 2;
 }
 
 message StatPerks {
@@ -245,21 +245,6 @@ message StylePerkSelection {
   int32 var1 = 2;
   int32 var2 = 3;
   int32 var3 = 4;
-}
-
-message Mission {
-  int32 playerScore0 = 1;
-  int32 playerScore1 = 2;
-  int32 playerScore2 = 3;
-  int32 playerScore3 = 4;
-  int32 playerScore4 = 5;
-  int32 playerScore5 = 6;
-  int32 playerScore6 = 7;
-  int32 playerScore7 = 8;
-  int32 playerScore8 = 9;
-  int32 playerScore9 = 10;
-  int32 playerScore10 = 11;
-  int32 playerScore11 = 12;
 }
 
 message Challange {

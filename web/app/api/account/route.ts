@@ -4,7 +4,7 @@ import {
   getAccountByGamenameAndTaglineResponseValidation,
   getAccountByGamenameAndTaglineValidation,
 } from "@/lib/riot/validation";
-import { RegionalRoutingValues } from "@maxischmaxi/jstreams-ts/account_pb";
+import { RegionalRoutingValues } from "@/account/v1/account_pb";
 import { NextRequest, NextResponse } from "next/server";
 
 async function getAccountByGamenameAndTaglineHandler({
