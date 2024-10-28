@@ -1,8 +1,4 @@
-import {
-  summoner as summonerApi,
-  account as accountApi,
-  entries as entriesApi,
-} from "@/lib/api";
+import { summoner as summonerApi, account as accountApi } from "@/lib/api";
 import { RegionalRoutingValues } from "@/account/v1/account_pb";
 import { PlatformRoutingValues } from "@/summoner/v1/summoner_pb";
 import Image from "next/image";
@@ -35,17 +31,13 @@ export default async function Layout({ children, params: { puuid } }: Props) {
     profileIconId: summoner.summoner?.profileIconId,
   });
 
-  const entries = await entriesApi.getEntriesBySummoner({
-    region: PlatformRoutingValues.EUW1,
-    summonerId: summoner.summoner?.id,
-  });
-
   return (
     <div className="container mx-auto flex flex-col flex-nowrap gap-8">
       <div className="flex flex-row flex-nowrap gap-4">
         <div className="relative">
           <Image
             src={icon.url}
+            priority
             width={128}
             height={128}
             alt={`${summoner.summoner?.accountId}-profile-icon`}
@@ -57,15 +49,9 @@ export default async function Layout({ children, params: { puuid } }: Props) {
         </div>
         <div className="flex flex-col">
           <h1 className="text-xl font-bold">{account.account?.gameName}</h1>
-          {Boolean(entries.entries[0]) && (
-            <h4 className="text-primary text-xs">
-              {account.account?.tagLine} / {entries.entries[0].tier}{" "}
-              {entries.entries[0].rank}
-            </h4>
-          )}
+          <h4 className="text-primary text-xs">{account.account?.tagLine}</h4>
         </div>
-        <div className="flex flex-row flex-nowrap justify-start items-center">
-        </div>
+        <div className="flex flex-row flex-nowrap justify-start items-center"></div>
       </div>
       {children}
     </div>

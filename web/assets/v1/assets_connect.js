@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { GetChampionAbilityAssetUrlRequest, GetChampionAbilityAssetUrlResponse, GetChampionLoadingScreenAssetUrlRequest, GetChampionLoadingScreenAssetUrlResponse, GetChampionPassiveAssetUrlRequest, GetChampionPassiveAssetUrlResponse, GetChampionSplashAssetUrlRequest, GetChampionSplashAssetUrlResponse, GetChampionSquareAssetUrlRequest, GetChampionSquareAssetUrlResponse, GetItemAssetUrlRequest, GetItemAssetUrlResponse, GetRuneIconRequest, GetRuneIconResponse, GetSpellAssetUrlRequest, GetSpellAssetUrlResponse, GetSummonerSpellIconRequest, GetSummonerSpellIconResponse } from "./assets_pb.js";
+import { GetChampionAbilityAssetUrlRequest, GetChampionAbilityAssetUrlResponse, GetChampionLoadingScreenAssetUrlRequest, GetChampionLoadingScreenAssetUrlResponse, GetChampionPassiveAssetUrlRequest, GetChampionPassiveAssetUrlResponse, GetChampionSplashAssetUrlRequest, GetChampionSplashAssetUrlResponse, GetChampionSquareAssetUrlRequest, GetChampionSquareAssetUrlResponse, GetRuneIconRequest, GetRuneIconResponse, GetSpellAssetUrlRequest, GetSpellAssetUrlResponse, GetSummonerSpellIconRequest, GetSummonerSpellIconResponse } from "./assets_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -28,15 +28,6 @@ export const AssetsService = {
       name: "GetSummonerSpellIcon",
       I: GetSummonerSpellIconRequest,
       O: GetSummonerSpellIconResponse,
-      kind: MethodKind.Unary,
-    },
-    /**
-     * @generated from rpc assets.AssetsService.GetItemAssetUrl
-     */
-    getItemAssetUrl: {
-      name: "GetItemAssetUrl",
-      I: GetItemAssetUrlRequest,
-      O: GetItemAssetUrlResponse,
       kind: MethodKind.Unary,
     },
     /**

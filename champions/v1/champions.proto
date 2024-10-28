@@ -5,7 +5,17 @@ option go_package = "maxischmaxi/jstreams/champions/v1;championsv1";
 package champions;
 
 service ChampionsService {
- rpc GetChampions(GetChampionsRequest) returns (GetChampionsResponse) {}
+  rpc GetChampions(GetChampionsRequest) returns (GetChampionsResponse) {}
+  rpc GetChampByChampId(GetChampByChampIdRequest) returns (GetChampByChampIdResponse) {}
+}
+
+message GetChampByChampIdRequest {
+  string patchVersion = 1;
+  int32 champId = 2;
+}
+
+message GetChampByChampIdResponse {
+  Champion champion = 1;
 }
 
 message GetChampionsRequest {

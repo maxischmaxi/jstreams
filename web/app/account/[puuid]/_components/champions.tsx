@@ -26,48 +26,32 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { useMemo, useState } from "react";
-import { ChampionMastery } from "@/masteries/v1/masteries_pb";
-import { PlainMessage } from "@bufbuild/protobuf";
+import { ChampionChartEntry } from "../page";
+import Image from "next/image";
 
 type Props = {
-  masteries: PlainMessage<ChampionMastery>[];
+  data: ChampionChartEntry[];
 };
 
-const columnHelper = createColumnHelper<ChampionMastery>();
+const columnHelper = createColumnHelper<ChampionChartEntry>();
 const defaultColumns = [
-  columnHelper.accessor("championId", {
-    header: "Champion",
-    cell: (props) => props.row.original.championId,
+  columnHelper.accessor("championPoints", {
+    header: "Punkte",
   }),
-  columnHelper.accessor("championLevel", {
-    header: "Gespielt",
-  }),
-  columnHelper.accessor("championLevel", {
-    header: "KDA",
-  }),
-  columnHelper.accessor("championLevel", {
-    header: "Gold",
-  }),
-  columnHelper.accessor("championLevel", {
-    header: "CS",
-  }),
-  columnHelper.accessor("championLevel", {
-    header: "Durchschnittlich verursachter Schaden",
-  }),
-  columnHelper.accessor("championLevel", {
-    header: "Durchschnittlich erhaltener Schaden",
-  }),
-  columnHelper.accessor("championLevel", {
-    header: "Zweifachtötung",
-  }),
-  columnHelper.accessor("championLevel", {
-    header: "Dreifachtötung",
-  }),
-  columnHelper.accessor("championLevel", {
-    header: "Vierfachtötung",
-  }),
-  columnHelper.accessor("championLevel", {
-    header: "Fünffachtötung",
+  columnHelper.accessor("name", {
+    header: "Name",
+    cell: (props) => (
+      <div className="flex flex-row flex-nowrap gap-1">
+        <Image
+          width={48}
+          height={48}
+          alt={props.row.original.name}
+          src={props.row.original.icon}
+          className="rounded-full object-cover object-center"
+        />
+        <p className="text-sm">{props.row.original.name}</p>
+      </div>
+    ),
   }),
 ];
 
@@ -78,13 +62,13 @@ export function Champions(props: Props) {
   });
 
   const pageCount = useMemo(
-    () => Math.ceil(props.masteries.length / pagination.pageSize),
-    [pagination.pageSize, props.masteries.length],
+    () => Math.ceil(props.data.length / pagination.pageSize),
+    [pagination.pageSize, props.data.length],
   );
 
   const table = useReactTable({
     columns: defaultColumns,
-    data: props.masteries.sort((a, b) => b.championLevel - a.championLevel),
+    data: props.data.sort((a, b) => b.championLevel - a.championLevel),
     getCoreRowModel: getCoreRowModel(),
     manualPagination: false,
     pageCount,

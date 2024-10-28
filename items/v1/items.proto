@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+option go_package = "maxischmaxi/jstreams/items/v1;itemsv1";
+
+package items;
+
+service ItemsService {
+  rpc GetItemImageById(GetItemImageByIdRequest) returns (GetItemImageByIdResponse) {}
+  rpc GetItemInformationById(GetItemInformationByIdRequest) returns (GetItemInformationByIdResponse) {}
+  rpc GetBaseItems(GetBaseItemsRequest) returns (GetBaseItemsResponse) {}
+}
+
+message GetBaseItemsRequest {
+  string patchVersion = 1;
+}
+
+message GetBaseItemsResponse {
+  string type = 1;
+  string version = 2;
+  Item basic = 3;
+  map<string, Item> data = 4;
+}
+
+message GetItemImageByIdRequest {
+  int32 itemId = 1;
+  string patchVersion = 2;
+}
+
+message GetItemImageByIdResponse {
+  string url = 1;
+}
+
+message GetItemInformationByIdRequest {
+  string patchVersion = 1;
+  int32 itemId = 2;
+}
+
+message GetItemInformationByIdResponse {
+  Item item = 1;
+}
+
+message Item {
+  string name = 1;
+  Rune rune = 2;
+  Gold gold = 3;
+  string group = 4;
+  string description = 5;
+  string colloq = 6;
+  string plaintext = 7;
+  bool consumed = 8;
+  int32 stacks = 9;
+  int32 depth = 10;
+  bool consumeOnFull = 11;
+  int32 specialRecipe = 12;
+  bool inStore = 13;
+  bool hideFromAll = 14;
+  string requiredChampion = 15;
+  string requiredAlly = 16;
+  map<string, float> stats = 17;
+  map<string, bool> maps = 18;
+  repeated string tags = 19;
+  map<string, string> effect = 20;
+}
+
+message Gold {
+  int32 base = 1;
+  int32 total = 2;
+  int32 sell = 3;
+  bool purchasable = 4;
+}
+
+message Rune {
+  bool isrune = 1;
+  int32 tier = 2;
+  string type = 3;
+}

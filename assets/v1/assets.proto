@@ -9,7 +9,6 @@ import "champions/v1/champions.proto";
 service AssetsService {
   rpc GetRuneIcon(GetRuneIconRequest) returns (GetRuneIconResponse) {}
   rpc GetSummonerSpellIcon(GetSummonerSpellIconRequest) returns (GetSummonerSpellIconResponse) {}
-  rpc GetItemAssetUrl(GetItemAssetUrlRequest) returns (GetItemAssetUrlResponse) {}
   rpc GetSpellAssetUrl(GetSpellAssetUrlRequest) returns (GetSpellAssetUrlResponse) {}
   rpc GetChampionAbilityAssetUrl(GetChampionAbilityAssetUrlRequest) returns (GetChampionAbilityAssetUrlResponse) {}
   rpc GetChampionPassiveAssetUrl(GetChampionPassiveAssetUrlRequest) returns (GetChampionPassiveAssetUrlResponse) {}
@@ -33,15 +32,6 @@ message GetSummonerSpellIconRequest {
 }
 
 message GetSummonerSpellIconResponse {
-  string url = 1;
-}
-
-message GetItemAssetUrlRequest {
-  int32 itemId = 1;
-  string patchVersion = 2;
-}
-
-message GetItemAssetUrlResponse {
   string url = 1;
 }
 

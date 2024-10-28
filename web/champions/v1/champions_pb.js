@@ -6,6 +6,27 @@
 import { proto3 } from "@bufbuild/protobuf";
 
 /**
+ * @generated from message champions.GetChampByChampIdRequest
+ */
+export const GetChampByChampIdRequest = /*@__PURE__*/ proto3.makeMessageType(
+  "champions.GetChampByChampIdRequest",
+  () => [
+    { no: 1, name: "patchVersion", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "champId", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ],
+);
+
+/**
+ * @generated from message champions.GetChampByChampIdResponse
+ */
+export const GetChampByChampIdResponse = /*@__PURE__*/ proto3.makeMessageType(
+  "champions.GetChampByChampIdResponse",
+  () => [
+    { no: 1, name: "champion", kind: "message", T: Champion },
+  ],
+);
+
+/**
  * @generated from message champions.GetChampionsRequest
  */
 export const GetChampionsRequest = /*@__PURE__*/ proto3.makeMessageType(

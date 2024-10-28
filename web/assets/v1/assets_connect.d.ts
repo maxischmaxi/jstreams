@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { GetChampionAbilityAssetUrlRequest, GetChampionAbilityAssetUrlResponse, GetChampionLoadingScreenAssetUrlRequest, GetChampionLoadingScreenAssetUrlResponse, GetChampionPassiveAssetUrlRequest, GetChampionPassiveAssetUrlResponse, GetChampionSplashAssetUrlRequest, GetChampionSplashAssetUrlResponse, GetChampionSquareAssetUrlRequest, GetChampionSquareAssetUrlResponse, GetItemAssetUrlRequest, GetItemAssetUrlResponse, GetRuneIconRequest, GetRuneIconResponse, GetSpellAssetUrlRequest, GetSpellAssetUrlResponse, GetSummonerSpellIconRequest, GetSummonerSpellIconResponse } from "./assets_pb.js";
+import { GetChampionAbilityAssetUrlRequest, GetChampionAbilityAssetUrlResponse, GetChampionLoadingScreenAssetUrlRequest, GetChampionLoadingScreenAssetUrlResponse, GetChampionPassiveAssetUrlRequest, GetChampionPassiveAssetUrlResponse, GetChampionSplashAssetUrlRequest, GetChampionSplashAssetUrlResponse, GetChampionSquareAssetUrlRequest, GetChampionSquareAssetUrlResponse, GetRuneIconRequest, GetRuneIconResponse, GetSpellAssetUrlRequest, GetSpellAssetUrlResponse, GetSummonerSpellIconRequest, GetSummonerSpellIconResponse } from "./assets_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -28,15 +28,6 @@ export declare const AssetsService: {
       readonly name: "GetSummonerSpellIcon",
       readonly I: typeof GetSummonerSpellIconRequest,
       readonly O: typeof GetSummonerSpellIconResponse,
-      readonly kind: MethodKind.Unary,
-    },
-    /**
-     * @generated from rpc assets.AssetsService.GetItemAssetUrl
-     */
-    readonly getItemAssetUrl: {
-      readonly name: "GetItemAssetUrl",
-      readonly I: typeof GetItemAssetUrlRequest,
-      readonly O: typeof GetItemAssetUrlResponse,
       readonly kind: MethodKind.Unary,
     },
     /**

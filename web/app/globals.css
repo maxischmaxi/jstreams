@@ -14,9 +14,12 @@ body {
 
 @layer base {
   :root {
-    --win: #28344e;
+    --win-background: #28344e;
+    --win-accent: #2f436e;
     --win-foreground: #5383e8;
     --lose-foreground: #e84057;
+    --lose-background: #59343B;
+    --lose-accent: #703C47;
     --link: #6ea6f0;
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;

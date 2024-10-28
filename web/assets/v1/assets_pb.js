@@ -49,27 +49,6 @@ export const GetSummonerSpellIconResponse = /*@__PURE__*/ proto3.makeMessageType
 );
 
 /**
- * @generated from message assets.GetItemAssetUrlRequest
- */
-export const GetItemAssetUrlRequest = /*@__PURE__*/ proto3.makeMessageType(
-  "assets.GetItemAssetUrlRequest",
-  () => [
-    { no: 1, name: "itemId", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 2, name: "patchVersion", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-  ],
-);
-
-/**
- * @generated from message assets.GetItemAssetUrlResponse
- */
-export const GetItemAssetUrlResponse = /*@__PURE__*/ proto3.makeMessageType(
-  "assets.GetItemAssetUrlResponse",
-  () => [
-    { no: 1, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-  ],
-);
-
-/**
  * @generated from message assets.GetSpellAssetUrlRequest
  */
 export const GetSpellAssetUrlRequest = /*@__PURE__*/ proto3.makeMessageType(

@@ -9,6 +9,7 @@ import { AssetsService } from "@/assets/v1/assets_connect";
 import { MasteriesService } from "@/masteries/v1/masteries_connect";
 import { createPromiseClient } from "@connectrpc/connect";
 import { createConnectTransport } from "@connectrpc/connect-web";
+import { ItemsService } from "@/items/v1/items_connect";
 
 export const transport = createConnectTransport({
   baseUrl: "http://localhost:8080",
@@ -30,3 +31,4 @@ export const champions = createPromiseClient(ChampionsService, transport);
 export const summoner = createPromiseClient(SummonerService, transport);
 export const assets = createPromiseClient(AssetsService, transport);
 export const masteries = createPromiseClient(MasteriesService, transport);
+export const items = createPromiseClient(ItemsService, transport);

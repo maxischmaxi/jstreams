@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { GetChampionsRequest, GetChampionsResponse } from "./champions_pb.js";
+import { GetChampByChampIdRequest, GetChampByChampIdResponse, GetChampionsRequest, GetChampionsResponse } from "./champions_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -19,6 +19,15 @@ export declare const ChampionsService: {
       readonly name: "GetChampions",
       readonly I: typeof GetChampionsRequest,
       readonly O: typeof GetChampionsResponse,
+      readonly kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc champions.ChampionsService.GetChampByChampId
+     */
+    readonly getChampByChampId: {
+      readonly name: "GetChampByChampId",
+      readonly I: typeof GetChampByChampIdRequest,
+      readonly O: typeof GetChampByChampIdResponse,
       readonly kind: MethodKind.Unary,
     },
   }

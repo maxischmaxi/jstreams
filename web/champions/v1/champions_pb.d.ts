@@ -7,6 +7,59 @@ import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialM
 import { Message, proto3 } from "@bufbuild/protobuf";
 
 /**
+ * @generated from message champions.GetChampByChampIdRequest
+ */
+export declare class GetChampByChampIdRequest extends Message<GetChampByChampIdRequest> {
+  /**
+   * @generated from field: string patchVersion = 1;
+   */
+  patchVersion: string;
+
+  /**
+   * @generated from field: int32 champId = 2;
+   */
+  champId: number;
+
+  constructor(data?: PartialMessage<GetChampByChampIdRequest>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "champions.GetChampByChampIdRequest";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetChampByChampIdRequest;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetChampByChampIdRequest;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetChampByChampIdRequest;
+
+  static equals(a: GetChampByChampIdRequest | PlainMessage<GetChampByChampIdRequest> | undefined, b: GetChampByChampIdRequest | PlainMessage<GetChampByChampIdRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message champions.GetChampByChampIdResponse
+ */
+export declare class GetChampByChampIdResponse extends Message<GetChampByChampIdResponse> {
+  /**
+   * @generated from field: champions.Champion champion = 1;
+   */
+  champion?: Champion;
+
+  constructor(data?: PartialMessage<GetChampByChampIdResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "champions.GetChampByChampIdResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetChampByChampIdResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetChampByChampIdResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetChampByChampIdResponse;
+
+  static equals(a: GetChampByChampIdResponse | PlainMessage<GetChampByChampIdResponse> | undefined, b: GetChampByChampIdResponse | PlainMessage<GetChampByChampIdResponse> | undefined): boolean;
+}
+
+/**
  * @generated from message champions.GetChampionsRequest
  */
 export declare class GetChampionsRequest extends Message<GetChampionsRequest> {

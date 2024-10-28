@@ -9,8 +9,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontSize: {
+        "2xs": "0.625rem",
+      },
       colors: {
-        win: "var(--win)",
+        ["win-background"]: "var(--win-background)",
+        ["win-accent"]: "var(--win-accent)",
+        ["lose-background"]: "var(--lose-background)",
+        ["lose-accent"]: "var(--lose-accent)",
         ["win-foreground"]: "var(--win-foreground)",
         ["lose-foreground"]: "var(--lose-foreground)",
         link: "var(--link)",

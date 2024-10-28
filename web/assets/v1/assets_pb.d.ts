@@ -114,59 +114,6 @@ export declare class GetSummonerSpellIconResponse extends Message<GetSummonerSpe
 }
 
 /**
- * @generated from message assets.GetItemAssetUrlRequest
- */
-export declare class GetItemAssetUrlRequest extends Message<GetItemAssetUrlRequest> {
-  /**
-   * @generated from field: int32 itemId = 1;
-   */
-  itemId: number;
-
-  /**
-   * @generated from field: string patchVersion = 2;
-   */
-  patchVersion: string;
-
-  constructor(data?: PartialMessage<GetItemAssetUrlRequest>);
-
-  static readonly runtime: typeof proto3;
-  static readonly typeName = "assets.GetItemAssetUrlRequest";
-  static readonly fields: FieldList;
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetItemAssetUrlRequest;
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetItemAssetUrlRequest;
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetItemAssetUrlRequest;
-
-  static equals(a: GetItemAssetUrlRequest | PlainMessage<GetItemAssetUrlRequest> | undefined, b: GetItemAssetUrlRequest | PlainMessage<GetItemAssetUrlRequest> | undefined): boolean;
-}
-
-/**
- * @generated from message assets.GetItemAssetUrlResponse
- */
-export declare class GetItemAssetUrlResponse extends Message<GetItemAssetUrlResponse> {
-  /**
-   * @generated from field: string url = 1;
-   */
-  url: string;
-
-  constructor(data?: PartialMessage<GetItemAssetUrlResponse>);
-
-  static readonly runtime: typeof proto3;
-  static readonly typeName = "assets.GetItemAssetUrlResponse";
-  static readonly fields: FieldList;
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetItemAssetUrlResponse;
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetItemAssetUrlResponse;
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetItemAssetUrlResponse;
-
-  static equals(a: GetItemAssetUrlResponse | PlainMessage<GetItemAssetUrlResponse> | undefined, b: GetItemAssetUrlResponse | PlainMessage<GetItemAssetUrlResponse> | undefined): boolean;
-}
-
-/**
  * @generated from message assets.GetSpellAssetUrlRequest
  */
 export declare class GetSpellAssetUrlRequest extends Message<GetSpellAssetUrlRequest> {
