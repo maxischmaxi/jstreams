@@ -1,6 +1,6 @@
 "use client";
 
-import { Match as MatchType } from "@/lib/riot/types/match/match";
+import { Match as MatchType } from "@/matches/v1/matches_pb";
 
 type Props = {
   match: MatchType;

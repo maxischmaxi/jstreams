@@ -4,7 +4,7 @@ import { PlatformRoutingValues } from "@/summoner/v1/summoner_pb";
 
 export const getChampionMasteriesByPuuidValidation = z.object({
   puuid: z.string().min(1),
-  region: z.nativeEnum(RegionalRoutingValues),
+  region: z.nativeEnum(PlatformRoutingValues),
 });
 
 export const getChampionMateriesByPuuidForChampionValidation = z.object({

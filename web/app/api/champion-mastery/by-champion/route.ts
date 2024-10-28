@@ -1,4 +1,4 @@
-import { getChampionMasteriesByPuuidByChampion } from "@/lib/riot";
+import { masteries } from "@/lib/api";
 import { getChampionMateriesByPuuidForChampionValidation } from "@/lib/riot/validation";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -25,13 +25,14 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   }
 
   try {
-    const masteries = await getChampionMasteriesByPuuidByChampion({
-      puuid: validRequest.data.puuid,
-      region: validRequest.data.region,
-      championId: validRequest.data.championId,
-    });
+    const { championMastery } =
+      await masteries.getChampionMasteriesByPuuidByChampion({
+        puuid: validRequest.data.puuid,
+        region: validRequest.data.region,
+        championId: validRequest.data.championId,
+      });
 
-    return NextResponse.json(masteries);
+    return NextResponse.json(championMastery);
   } catch (error) {
     return new NextResponse(JSON.stringify(error), {
       status: 500,
