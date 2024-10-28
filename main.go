@@ -73,7 +73,7 @@ func main() {
 	mux.Handle(path, handler)
 
 	log.Fatal(http.ListenAndServe(
-		"localhost:8080",
+		"0.0.0.0:8080",
 		mux,
 	))
 }
