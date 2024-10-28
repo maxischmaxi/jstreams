@@ -4,6 +4,7 @@ import (
 	"fmt"
 	accountv1 "maxischmaxi/jstreams/account/v1"
 	summonerv1 "maxischmaxi/jstreams/summoner/v1"
+	"net/http"
 	"net/url"
 	"os"
 
@@ -84,4 +85,14 @@ func String(n int32) string {
 			return string(buf[pos:])
 		}
 	}
+}
+
+func HandleServer(mux *http.ServeMux, path string, handler http.Handler) {
+	mux.Handle(path, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodGet {
+			r.Method = http.MethodPost
+		}
+
+		handler.ServeHTTP(w, r)
+	}))
 }
