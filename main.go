@@ -22,7 +22,6 @@ import (
 	"maxischmaxi/jstreams/summoner/v1/summonerv1connect"
 	"maxischmaxi/jstreams/tier"
 	"maxischmaxi/jstreams/tier/v1/tierv1connect"
-	"maxischmaxi/jstreams/utils"
 	"maxischmaxi/jstreams/version"
 	"maxischmaxi/jstreams/version/v1/versionv1connect"
 
@@ -35,43 +34,43 @@ func main() {
 
 	items := &items.ItemsServer{}
 	path, handler := itemsv1connect.NewItemsServiceHandler(items, interceptors)
-	utils.HandleServer(mux, path, handler)
+	mux.Handle(path, handler)
 
 	champions := &champions.ChampionsServer{}
 	path, handler = championsv1connect.NewChampionsServiceHandler(champions, interceptors)
-	utils.HandleServer(mux, path, handler)
+	mux.Handle(path, handler)
 
 	summoner := &summoner.SummonerServer{}
 	path, handler = summonerv1connect.NewSummonerServiceHandler(summoner, interceptors)
-	utils.HandleServer(mux, path, handler)
+	mux.Handle(path, handler)
 
 	matches := &matches.MatchesServer{}
 	path, handler = matchesv1connect.NewMatchesServiceHandler(matches, interceptors)
-	utils.HandleServer(mux, path, handler)
+	mux.Handle(path, handler)
 
 	entries := &entries.EntriesServer{}
 	path, handler = entriesv1connect.NewEntriesServiceHandler(entries, interceptors)
-	utils.HandleServer(mux, path, handler)
+	mux.Handle(path, handler)
 
 	assets := &assets.AssetsServer{}
 	path, handler = assetsv1connect.NewAssetsServiceHandler(assets, interceptors)
-	utils.HandleServer(mux, path, handler)
+	mux.Handle(path, handler)
 
 	tier := &tier.TierServer{}
 	path, handler = tierv1connect.NewTierServiceHandler(tier, interceptors)
-	utils.HandleServer(mux, path, handler)
+	mux.Handle(path, handler)
 
 	account := &account.AccountServer{}
 	path, handler = accountv1connect.NewAccountServiceHandler(account, interceptors)
-	utils.HandleServer(mux, path, handler)
+	mux.Handle(path, handler)
 
 	version := &version.VersionServer{}
 	path, handler = versionv1connect.NewVersionServiceHandler(version, interceptors)
-	utils.HandleServer(mux, path, handler)
+	mux.Handle(path, handler)
 
 	masteris := &masteries.MasteriesServer{}
 	path, handler = masteriesv1connect.NewMasteriesServiceHandler(masteris, interceptors)
-	utils.HandleServer(mux, path, handler)
+	mux.Handle(path, handler)
 
 	log.Fatal(http.ListenAndServe(
 		"0.0.0.0:8080",

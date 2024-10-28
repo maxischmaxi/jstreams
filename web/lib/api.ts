@@ -22,7 +22,7 @@ export const transport = createConnectTransport({
       redirect: "follow",
     });
   },
-  useHttpGet: true,
+  useHttpGet: false,
 });
 
 export const account = createPromiseClient(AccountService, transport);
