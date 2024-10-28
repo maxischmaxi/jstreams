@@ -26,16 +26,9 @@ import (
 	"maxischmaxi/jstreams/version/v1/versionv1connect"
 
 	"connectrpc.com/connect"
-
-	"github.com/joho/godotenv"
 )
 
 func main() {
-	err := godotenv.Load(".env.development.local")
-	if err != nil {
-		log.Fatalf("failed to load .env.development.local: %v", err)
-	}
-
 	mux := http.NewServeMux()
 	interceptors := connect.WithInterceptors(LoggingInterceptor())
 
