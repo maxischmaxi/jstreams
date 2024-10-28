@@ -17,7 +17,10 @@ export const transport = createConnectTransport({
     enumAsInteger: true,
   },
   fetch: (input: RequestInfo | URL, init?: RequestInit) => {
-    return fetch(input, init);
+    return fetch(input, {
+      ...init,
+      redirect: "follow",
+    });
   },
   useHttpGet: true,
 });
