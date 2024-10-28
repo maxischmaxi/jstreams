@@ -12,7 +12,7 @@ import { createConnectTransport } from "@connectrpc/connect-web";
 import { ItemsService } from "@/items/v1/items_connect";
 
 export const transport = createConnectTransport({
-  baseUrl: "http://localhost:8080",
+  baseUrl: process.env.GATEWAY ?? "",
   jsonOptions: {
     enumAsInteger: true,
   },
