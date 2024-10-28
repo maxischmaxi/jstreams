@@ -22,7 +22,7 @@ export default async function Page({ params: { matchId } }: Props) {
   return (
     <div>
       <p>{match.match?.metadata?.matchId}</p>
-      <Match match={match} timeline={timeline} />
+      {match.match && <Match match={match.match} timeline={timeline} />}
     </div>
   );
 }

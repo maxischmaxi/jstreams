@@ -127,13 +127,7 @@ export function RolesChart(props: Props) {
                     </g>
                   );
                 default:
-                  return (
-                    <g>
-                      <text fill="#fff" x={x} y={y}>
-                        {value}
-                      </text>
-                    </g>
-                  );
+                  return null;
               }
             }}
           />

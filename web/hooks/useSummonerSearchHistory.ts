@@ -1,10 +1,10 @@
-import { REGIONAL_ROUTING_VALUES } from "@/lib/riot/lib";
+import { RegionalRoutingValues } from "@/account/v1/account_pb";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 type SearchHistoryItem = {
   gameName: string;
-  region: REGIONAL_ROUTING_VALUES;
+  region: RegionalRoutingValues;
   timestamp: number;
 };
 

@@ -1,9 +1,5 @@
 "use client";
 
-type Props = {};
-
-export function MatchDetails(props: Props) {
-  const {} = props;
-
+export function MatchDetails() {
   return <div></div>;
 }
